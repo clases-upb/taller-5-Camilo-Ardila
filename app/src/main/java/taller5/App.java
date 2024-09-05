@@ -3,115 +3,173 @@
  */
 package taller5;
 
+import java.util.Scanner;
+
 public class App {
     
     public static void main(String[] args) {
-        
+
         try {
-            
+            System.out.println(Encontrar_aleatorio(7777));
         } 
-        
+
         catch (Exception e) {
             // TODO: handle exception
         }
     }
 
+    /*
+     * 
+     * 1. Desarrolle un algoritmo e impleméntelo en Java que: le pida al usuario un
+     * número entero positivo
+     * entre 1000 y 9999. En un ciclo genere números de manera aleatoria y cuente
+     * los intentos que hizo antes
+     * de hallar el número exactamente.
+     * 
+     * 
+     */
+
+    public static int Encontrar_aleatorio (int numero){
+
+        try {
+
+            final int end = 9999, inicio = 1000, busqueda = 1000000, rango = 1; 
+    
+            int aleatorio = 0, contador = 0;
+
+            System.out.println("Por favor, ingrese un número del 1000 al 9999");
+            
+            Scanner teclado = new Scanner(System.in);
+
+            numero = teclado.nextInt();
+
+            if (numero >= inicio && numero <= end){
+
+                for(int start = 1; start <= busqueda; start ++){
+    
+                    aleatorio = (int)(Math.random()*(end - inicio) + inicio + rango); // Este +1 incluye al 9999 en el rango
+    
+                    if (aleatorio != numero)
+                        contador ++;
+                    
+                    else{
+                        System.out.println("La cantidad de números generados antes de encontrar el ingresado fue: ");
+                        return contador;
+                    }
+                }
+                
+                return 0;
+                
+            }
+
+            else{
+                System.out.println("El número ingresado debe estar entre 1000 y 9999");
+                return -1;
+            }
+        } 
+
+        catch(Exception e) {
+            return -1;
+        }
+    }
 
     /*
-    
-        1.	Desarrolle un algoritmo e impleméntelo en Java que: le pida al usuario un número entero positivo 
-        entre 1000 y 9999. En un ciclo genere números de manera aleatoria y cuente los intentos que hizo antes 
-        de hallar el número exactamente.
-        
-    
-    */ 
+     * 
+     * 2. Se requiere una función en java que simule las ventas de tres años para un
+     * almacén. Para cada año, deberá generar
+     * un aleatorio para cada mes hasta completar los 12 meses. La función se
+     * llamará Simular_ventas, y debe retornar un String
+     * al final que muestre las ventas de cada año, así:
+     * 
+     * Año 1
+     * Ventas Mes 1: $##.###.###
+     * :
+     * Ventas Mes 12: $##.###.###
+     * Total ventas Año 1: $##.###.###
+     * 
+     * Año 2
+     * Ventas Mes 1: $##.###.###
+     * :
+     * Ventas Mes 12: $##.###.###
+     * Total ventas Año 2: $##.###.###
+     * 
+     * Año 3
+     * Ventas Mes 1: $##.###.###
+     * :
+     * Ventas Mes 12: $##.###.###
+     * 
+     * Total ventas Año 3: $##.###.###
+     * 
+     * Investigue sobre la clase DecimalFormat para mostrar bien la salida.
+     * import java.text.DecimalFormat;
+     * DecimalFormat form_pesos = new DecimalFormat("$#,###.00");
+     * 
+     * 
+     * 
+     */
 
+    public static String Simular_ventas(){
 
-
-
-    /* 
-     
-        2.	Se requiere una función en java que simule las ventas de tres años para un almacén. Para cada año, deberá generar 
-        un aleatorio para cada mes hasta completar los 12 meses. La función se llamará Simular_ventas, y debe retornar un String 
-        al final que muestre las ventas de cada año, así:
-        
-            Año 1
-            Ventas Mes 1: $##.###.###
-            :
-            Ventas Mes 12: $##.###.###
-            Total ventas Año 1:  $##.###.###
+        try{
             
-            Año 2
-            Ventas Mes 1: $##.###.###
-            :
-            Ventas Mes 12: $##.###.###
-            Total ventas Año 2: $##.###.###
-            
-            Año 3
-            Ventas Mes 1: $##.###.###
-            :
-            Ventas Mes 12: $##.###.###
+        }
 
-            Total ventas Año 3: $##.###.###
-            
-            Investigue sobre la clase DecimalFormat para mostrar bien la salida. 
-            import java.text.DecimalFormat;
-            DecimalFormat form_pesos = new DecimalFormat("$#,###.00");
+        catch{
 
-        
-      
-    */
-
+        }
+    }
     
+    /*
+     * 
+     * 3. En una fábrica se tiene el siguiente patrón de empaque: En una estiba(o
+     * pallet) caben 16 cajas y en cada caja,
+     * caben 30 bombillas. Desarrolle una función que se llame: Calcular_empaque
+     * que: reciba como argumento la cantidad de
+     * bombillas que se deben empacar y a partir de allí: calcule cuántas cajas
+     * necesita, cuántas estibas o pallets necesita.
+     * Luego escriba lo siguiente:
+     * 
+     * Para ### bombillas, se necesitan ## cajas y ## pallets. Se quedan ###
+     * bombillas sin empacar. Se empacará así:
+     * 
+     * Pallet 1 --> Caja1, Caja2……,Caja16
+     * Pallet2 --> Caja17, Caja18…..Caja 32
+     * .
+     * Pallet n -- > Caja m, caja m+1…..
+     * 
+     * La función retornará un texto, con la información anterior. Pruebe la función
+     * llamándola desde el programa principal: solicite al usuario el número de
+     * bombillas e invoque la función para imprimir en el main, los resultados.
+     * 
+     * 
+     * 
+     */
 
-
-
-    /*  
-     
-        3.	En una fábrica se tiene el siguiente patrón de empaque: En una estiba(o pallet) caben 16  cajas y en cada caja, 
-        caben 30 bombillas. Desarrolle una función que se llame: Calcular_empaque que: reciba como argumento la cantidad de 
-        bombillas que se deben empacar y a partir de allí: calcule cuántas cajas necesita, cuántas estibas o pallets necesita. 
-        Luego escriba lo siguiente: 
-
-        Para ### bombillas, se necesitan ## cajas y ## pallets. Se quedan ### bombillas sin empacar. Se empacará así:
-
-        Pallet 1 --> Caja1, Caja2……,Caja16
-        Pallet2 -->  Caja17, Caja18…..Caja 32
-        .
-        Pallet n -- > Caja m, caja m+1…..
-        
-        La función retornará un texto, con la información anterior. Pruebe la función llamándola desde el programa principal: solicite al usuario el número de bombillas e invoque la función para imprimir en el main, los resultados.
-
-
-
-    */
-
-
-
-    
-
-    /* 
-    
-
-        4.	En un juego, cada jugador tiene 3 intentos para sacar cartas de una baraja. Las cartas van numeradas entre 1 y 10. 
-        Una función Jugar_21, deberá simular el juego para una cantidad de usuarios que enviará el usuario desde el main entre 1 y 6.
-
-        Para cada uno de los jugadores, el programa le calculará 3 cartas al azar y al final imprimirá el juego para cada jugador basado en las siguientes reglas: 
-        
-        Si saca 21 exactos: juego perfecto
-        Si saca más de 21: se pasó
-        Si saca menos de 21: faltaron puntos
-
-        La función deberá imprimir los puntos de cada jugador junto con la regla anterior, como muestra el ejemplo:
-
-        Jugador X, puntos 21 -- > juego perfecto
-        Jugador Y, puntos 26 -- > se pasó
-        .
-        .
-
-
-    */
-
-
+    /*
+     * 
+     * 
+     * 4. En un juego, cada jugador tiene 3 intentos para sacar cartas de una
+     * baraja. Las cartas van numeradas entre 1 y 10.
+     * Una función Jugar_21, deberá simular el juego para una cantidad de usuarios
+     * que enviará el usuario desde el main entre 1 y 6.
+     * 
+     * Para cada uno de los jugadores, el programa le calculará 3 cartas al azar y
+     * al final imprimirá el juego para cada jugador basado en las siguientes
+     * reglas:
+     * 
+     * Si saca 21 exactos: juego perfecto
+     * Si saca más de 21: se pasó
+     * Si saca menos de 21: faltaron puntos
+     * 
+     * La función deberá imprimir los puntos de cada jugador junto con la regla
+     * anterior, como muestra el ejemplo:
+     * 
+     * Jugador X, puntos 21 -- > juego perfecto
+     * Jugador Y, puntos 26 -- > se pasó
+     * .
+     * .
+     * 
+     * 
+     */
 
 }
