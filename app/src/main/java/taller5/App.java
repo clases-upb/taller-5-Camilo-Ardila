@@ -3,6 +3,7 @@
  */
 package taller5;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class App {
@@ -10,7 +11,9 @@ public class App {
     public static void main(String[] args) {
 
         try {
-            System.out.println(Encontrar_aleatorio(7777));
+            System.out.println(Encontrar_aleatorio(7777) + "\n");
+
+            System.out.println(Simular_ventas());
         } 
 
         catch (Exception e) {
@@ -33,7 +36,7 @@ public class App {
 
         try {
 
-            final int end = 9999, inicio = 1000, busqueda = 1000000, rango = 1; 
+            final int end = 9999, inicio = 1000, rango = 1; 
     
             int aleatorio = 0, contador = 0;
 
@@ -45,21 +48,20 @@ public class App {
 
             if (numero >= inicio && numero <= end){
 
-                for(int start = 1; start <= busqueda; start ++){
-    
+                while(aleatorio != numero){
+
                     aleatorio = (int)(Math.random()*(end - inicio) + inicio + rango); // Este +1 incluye al 9999 en el rango
     
-                    if (aleatorio != numero)
-                        contador ++;
-                    
-                    else{
+                    if (aleatorio == numero)
                         System.out.println("La cantidad de números generados antes de encontrar el ingresado fue: ");
-                        return contador;
-                    }
+                    
+                    else
+                        contador ++;
+
                 }
                 
-                return 0;
-                
+                return contador;
+
             }
 
             else{
@@ -72,7 +74,7 @@ public class App {
             return -1;
         }
     }
-
+    
     /*
      * 
      * 2. Se requiere una función en java que simule las ventas de tres años para un
@@ -110,12 +112,52 @@ public class App {
 
     public static String Simular_ventas(){
 
-        try{
+        try {
+
+            final long ventas_min = 30000000, ventas_max = 100000000;
             
-        }
+            final int simulables = 3, meses = 12;
 
-        catch{
+            long ventas_mes = 0, ventas_total = 0, fin_simul = 0;
+            
+            String  mensaje_mes = "", mensaje_total = "", mensaje_fin = "";
 
+            DecimalFormat formato = new DecimalFormat("$##,###.00");
+
+            for(int inicio = 1; inicio <= simulables; inicio ++){
+                
+                System.out.println("Año" + inicio + ":");
+
+                for(int mes_inicio = 1; mes_inicio <= meses; mes_inicio ++){
+
+                    ventas_mes = (int)(Math.random() * (ventas_max - ventas_min) + ventas_min);
+                
+                    ventas_total += ventas_mes;
+
+                    mensaje_mes = formato.format(ventas_mes);
+    
+                    System.out.println("Ventas mes " + mes_inicio + ": " + mensaje_mes);
+                }
+
+                mensaje_total = formato.format(ventas_total);
+                fin_simul += ventas_total;
+
+                System.out.println("Total ventas Año " + inicio + ": " + mensaje_total + "\n");
+                
+            }
+
+            mensaje_fin = formato.format(fin_simul);
+            
+            System.out.println("Durante los 3 Años se vendió un total de: ");
+
+            return mensaje_fin;
+
+        } 
+        
+        catch (Exception e) {
+            // TODO: handle exception
+            String error = "Ha ocurrido un error inesperado " + e;
+            return error;
         }
     }
     
