@@ -4,16 +4,23 @@
 package taller5;
 
 import java.text.DecimalFormat;
+import java.util.Random;
 import java.util.Scanner;
 
 public class App {
-    
+
     public static void main(String[] args) {
 
         try {
+            
             System.out.println(Encontrar_aleatorio(7777) + "\n");
 
-            System.out.println(Simular_ventas());
+            System.out.println(Simular_ventas() + "\n");
+
+            System.out.println(Calcular_empaque(2576) + "\n");
+
+            System.out.println(Jugar_21(8));
+            
         } 
 
         catch (Exception e) {
@@ -37,11 +44,11 @@ public class App {
         try {
 
             final int end = 9999, inicio = 1000, rango = 1; 
-    
+
             int aleatorio = 0, contador = 0;
 
             System.out.println("Por favor, ingrese un número del 1000 al 9999");
-            
+
             Scanner teclado = new Scanner(System.in);
 
             numero = teclado.nextInt();
@@ -51,15 +58,15 @@ public class App {
                 while(aleatorio != numero){
 
                     aleatorio = (int)(Math.random()*(end - inicio) + inicio + rango); // Este +1 incluye al 9999 en el rango
-    
+
                     if (aleatorio == numero)
                         System.out.println("La cantidad de números generados antes de encontrar el ingresado fue: ");
-                    
+
                     else
                         contador ++;
 
                 }
-                
+
                 return contador;
 
             }
@@ -74,7 +81,7 @@ public class App {
             return -1;
         }
     }
-    
+
     /*
      * 
      * 2. Se requiere una función en java que simule las ventas de tres años para un
@@ -115,27 +122,27 @@ public class App {
         try {
 
             final long ventas_min = 30000000, ventas_max = 100000000;
-            
+
             final int simulables = 3, meses = 12;
 
             long ventas_mes = 0, ventas_total = 0, fin_simul = 0;
-            
+
             String  mensaje_mes = "", mensaje_total = "", mensaje_fin = "";
 
             DecimalFormat formato = new DecimalFormat("$##,###.00");
 
             for(int inicio = 1; inicio <= simulables; inicio ++){
-                
+
                 System.out.println("Año" + inicio + ":");
 
                 for(int mes_inicio = 1; mes_inicio <= meses; mes_inicio ++){
 
                     ventas_mes = (int)(Math.random() * (ventas_max - ventas_min) + ventas_min);
-                
+
                     ventas_total += ventas_mes;
 
                     mensaje_mes = formato.format(ventas_mes);
-    
+
                     System.out.println("Ventas mes " + mes_inicio + ": " + mensaje_mes);
                 }
 
@@ -143,24 +150,24 @@ public class App {
                 fin_simul += ventas_total;
 
                 System.out.println("Total ventas Año " + inicio + ": " + mensaje_total + "\n");
-                
+
             }
 
             mensaje_fin = formato.format(fin_simul);
-            
+
             System.out.println("Durante los 3 Años se vendió un total de: ");
 
             return mensaje_fin;
 
         } 
-        
+
         catch (Exception e) {
             // TODO: handle exception
             String error = "Ha ocurrido un error inesperado " + e;
             return error;
         }
     }
-    
+
     /*
      * 
      * 3. En una fábrica se tiene el siguiente patrón de empaque: En una estiba(o
@@ -186,7 +193,45 @@ public class App {
      * 
      * 
      */
+    
+    public static String Calcular_empaque(int bombillas){
+    
+        try{
+            
+            final int min_bombillas = 0, cajas_pallet = 16, bombillas_caja = 30;
 
+            int pallets = 0, cajas = 0, bombillas_sobrantes = 0;
+
+            String mensaje = "";
+            
+            if(bombillas > min_bombillas){
+
+                cajas = (int)Math.ceil((float)(bombillas / bombillas_caja));
+                pallets = (int)Math.ceil((float)(cajas / cajas_pallet));
+                bombillas_sobrantes = bombillas % bombillas_caja;
+
+                
+                System.out.println("Para " + bombillas + " bombillas, se necesitan: " + cajas + " cajas y " + pallets + " pallets. Se quedan " + bombillas_sobrantes + " Sin empacar"
+                + "\n\nSe empacarán así: \n");
+
+                return mensaje;
+                
+            }
+
+            else{
+                mensaje = "Debe haber por lo menos una bomilla ";
+                return mensaje;
+            }
+            
+        }
+
+        catch(Exception e){
+            String error = "Ha ocurrido un error inesperado " + e;
+            return error;
+        }
+        
+    }
+    
     /*
      * 
      * 
@@ -214,4 +259,63 @@ public class App {
      * 
      */
 
+    public static String Jugar_21(int jugadores){
+
+        try{
+
+            final int puntos_max = 21, lim_carta = 1, lim_carta_max = 11, jug_min = 1, jug_max = 6; // Al declarar el límite superior como 11, incluímos al 10 en el rango. El 11 nunca será generado
+                
+            int carta_1 = 0, carta_2 = 0, carta_3 = 0;
+
+            int puntos = 0;
+            
+            String mensaje = "";
+
+            System.out.println("Partida de Blackjack: \n");
+
+            if (jugadores >= jug_min && jugadores <= jug_max){
+            
+            
+                for(int turno = 1; turno <= jugadores; turno ++){
+                
+                    carta_1 = (int)(Math.random()*(lim_carta_max - lim_carta) + lim_carta);
+                    carta_2 = (int)(Math.random()*(lim_carta_max - lim_carta) + lim_carta);
+                    carta_3 = (int)(Math.random()*(lim_carta_max - lim_carta) + lim_carta);
+    
+                    puntos = carta_1 + carta_2 + carta_3;
+                    
+                    if(puntos == puntos_max){
+                        mensaje = "Jugador " + turno + ": \nPuntos: " + puntos + " -- > Juego perfecto! \n";
+                    }
+    
+                    else if(puntos > puntos_max){
+                        mensaje = "Jugador " + turno + ": \nPuntos: " + puntos + " -- > Se pasó \n";
+                    }
+    
+                    else{
+                        mensaje = "Jugador " + turno + ": \nPuntos: " + puntos + " -- > Faltaron puntos \n";
+                    }
+        
+                    System.out.println(mensaje);
+                    
+                }
+
+                mensaje = "Fin del juego";
+                return mensaje;
+                
+            }
+
+            else{
+                mensaje = "Debe haber entre 1 y 6 jugadores ";
+                return mensaje;
+            }
+            
+        }
+            
+        catch(Exception e){
+            String error = "Ha ocurrido un error inesperado " + e;
+            return error;
+        }
+        
+    }
 }
