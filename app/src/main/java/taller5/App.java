@@ -17,9 +17,9 @@ public class App {
 
             System.out.println(Simular_ventas() + "\n");
 
-            System.out.println(Calcular_empaque(2576) + "\n");
+            System.out.println(Calcular_empaque(890) + "\n");
 
-            System.out.println(Jugar_21(8));
+            System.out.println(Jugar_21(6));
             
         } 
 
@@ -200,19 +200,37 @@ public class App {
             
             final int min_bombillas = 0, cajas_pallet = 16, bombillas_caja = 30;
 
-            int pallets = 0, cajas = 0, bombillas_sobrantes = 0;
+            float cajas_decimales = bombillas / bombillas_caja, pallets_decimales = cajas_decimales / cajas_pallet, bombillas_sobrantes = 0;
 
             String mensaje = "";
             
             if(bombillas > min_bombillas){
 
-                cajas = (int)Math.ceil((float)(bombillas / bombillas_caja));
-                pallets = (int)Math.ceil((float)(cajas / cajas_pallet));
+                int cajas = (int)Math.ceil(cajas_decimales);
+                int pallets = (int)Math.ceil(pallets_decimales);
                 bombillas_sobrantes = bombillas % bombillas_caja;
 
                 
-                System.out.println("Para " + bombillas + " bombillas, se necesitan: " + cajas + " cajas y " + pallets + " pallets. Se quedan " + bombillas_sobrantes + " Sin empacar"
+                System.out.println("Para " + bombillas + " bombillas, se necesitan: " + cajas + " cajas y " + pallets + " pallets. Se quedan " + (int)bombillas_sobrantes + " Sin empacar"
                 + "\n\nSe empacarán así: \n");
+
+                for(int contador_pallets = 1; contador_pallets <= pallets; contador_pallets++){
+
+                    System.out.println("Pallet " + contador_pallets + " --> ");
+
+                        for(int contador_cajas = (1 + ((contador_pallets - 1) * cajas_pallet)); contador_cajas <= (cajas_pallet + ((contador_pallets - 1) * cajas_pallet)); contador_cajas ++){
+
+                            System.out.print("Caja " + contador_cajas + " ");
+
+                            if (contador_cajas == cajas)
+                                contador_cajas = cajas_pallet + ((contador_pallets - 1) * cajas_pallet) + 1;
+                        }
+
+                    System.out.println("\n");    
+
+                }
+
+                mensaje = "\nSe empacaron " + (int)(bombillas - bombillas_sobrantes) + " bombillas y sobraron " + (int)bombillas_sobrantes + " bombillas";
 
                 return mensaje;
                 
